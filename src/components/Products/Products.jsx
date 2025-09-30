@@ -1,3 +1,5 @@
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+
 const productsArr = [
   {
     title: "Colors",
@@ -23,31 +25,32 @@ const productsArr = [
 
 const Products = () => {
   return (
-    <section className="container py-4">
+    <Container className="py-4">
       <h2 className="text-center mb-4">Music</h2>
-      <div className="row">
+      <Row>
         {productsArr.map((item, index) => (
-          <div className="col-sm-6 col-md-4 col-lg-3 mb-4" key={index}>
-            <div className="card text-center">
-              <img
+          <Col sm={6} md={4} lg={3} className="mb-4" key={index}>
+            <Card className="h-100 text-center">
+              <Card.Img
+                variant="top"
                 src={item.imageUrl}
                 alt={item.title}
-                style={{ height: "200px", objectFit: "cover" }}
+                style={{ height: "250px", objectFit: "cover" }}
               />
-              <div className="card-body d-flex flex-column justify-content-between">
-                <h5 className="card-title">{item.title}</h5>
-                <div className="d-flex justify-content-between align-items-center mt-3">
+              <Card.Body className="d-flex flex-column">
+                <Card.Title>{item.title}</Card.Title>
+                <div className="d-flex justify-content-between align-items-center">
                   <span className="fw-bold">${item.price}</span>
-                  <button className="btn btn-primary btn-sm">
+                  <Button variant="primary" size="sm">
                     ADD TO CART
-                  </button>
+                  </Button>
                 </div>
-              </div>
-            </div>
-          </div>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </div>
-    </section>
+      </Row>
+    </Container>
   );
 };
 
