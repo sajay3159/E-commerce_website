@@ -1,4 +1,12 @@
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Offcanvas,
+  Row,
+} from "react-bootstrap";
 
 const cartElements = [
   {
@@ -21,49 +29,92 @@ const cartElements = [
   },
 ];
 
-const Cart = ({ onClose }) => {
+const Cart = ({ onShow, onClose }) => {
+  const total = cartElements.reduce((sum, item) => {
+    return sum + item.price * item.quantity.toFixed(2);
+  }, 0);
+
   return (
-    <Container className="position-relative mt-5 pt-5">
-      {/* Close button in top-right corner */}
-      <button
-        onClick={onClose}
-        className="btn btn-light position-absolute"
-        style={{ top: "10px", right: "10px", zIndex: 1 }}
-      >
-        &times;
-      </button>
+    <Offcanvas
+      show={onShow}
+      onHide={onClose}
+      placement="end"
+      style={{ maxWidth: 480 }}
+    >
+      <Offcanvas.Header closeButton>
+        <Offcanvas.Title>CART</Offcanvas.Title>
+      </Offcanvas.Header>
 
-      <h2 className="text-center mb-4">Cart Items</h2>
+      <Offcanvas.Body className="pt-0">
+        <Container className="px-0">
+          <Row className="border-bottom fw-semibold text-uppercase small py-2">
+            <Col xs={6} md={5}>
+              Item
+            </Col>
+            <Col xs={3} md={2}>
+              Price
+            </Col>
+            <Col xs={3} md={3}>
+              Quantity
+            </Col>
+            <Col xs={12} md={2} className="d-md-block text-end">
+              Action
+            </Col>
+          </Row>
+          {cartElements.map((item) => (
+            <Row
+              key={item.title}
+              className="align-items-center border-bottom py-3 g-2"
+            >
+              <Col xs={6} md={5} className="d-flex align-items-center gap-2">
+                <Card.Img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  style={{ width: 64, height: 64, objectFit: "cover" }}
+                />
+                <span>{item.title}</span>
+              </Col>
 
-      <Row className="border-bottom pb-2 fw-bold">
-        <Col md={4}>ITEM</Col>
-        <Col md={2}>PRICE</Col>
-        <Col md={3}>QUANTITY</Col>
-        <Col md={3}>Action</Col>
-      </Row>
+              <Col xs={3} md={2}>
+                ${item.price}
+              </Col>
 
-      {cartElements.map((item) => (
-        <Row className="align-items-center border-bottom py-3" key={item.title}>
-          <Col
-            md={4}
-            className="d-flex justify-content-between align-items-center mt-1"
-          >
-            <Card.Img
-              variant="top"
-              src={item.imageUrl}
-              alt="image"
-              style={{ width: "100px" }}
-            />
-            <span className="ms-2">{item.title}</span>
-          </Col>
-          <Col md={2}>${item.price}</Col>
-          <Col md={3}>{item.quantity}</Col>
-          <Col md={3}>
-            <Button variant="danger">Remove</Button>
-          </Col>
-        </Row>
-      ))}
-    </Container>
+              <Col xs={3} md={3}>
+                <div className="d-flex align-items-center gap-2">
+                  <Form.Control
+                    type="number"
+                    min={1}
+                    defaultValue={item.quantity}
+                    size="sm"
+                    style={{ width: 50 }}
+                  />
+                </div>
+              </Col>
+
+              <Col xs={12} md={2} className="text-end mt-2">
+                <Button variant="danger" size="sm">
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+          ))}
+
+          <Row className="pt-3">
+            <Col className="d-flex justify-content-between align-items-center">
+              <span className="fs-5">Total</span>
+              <span className="fs-5">${total}</span>
+            </Col>
+          </Row>
+          <Row className="pt-3">
+            <Col className="text-center">
+              <Button variant="info" size="lg" className="px-5">
+                Purchase
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </Offcanvas.Body>
+    </Offcanvas>
   );
 };
 

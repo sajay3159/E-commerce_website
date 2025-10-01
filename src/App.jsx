@@ -18,7 +18,7 @@ function App() {
     <>
       <Header onCartClick={handleCartOpen} />
       <Products />
-      {isCartOpen && <Cart onClose={handleClose} />}
+      {<Cart onShow={isCartOpen} onClose={handleClose} />}
     </>
   );
 }
