@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import CartContext from "../store/cart-context";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = ({ onCartClick }) => {
   const cartCtx = useContext(CartContext);
@@ -19,13 +19,25 @@ const Header = ({ onCartClick }) => {
             <Nav.Link href="about">About</Nav.Link> */}
           </Nav>
           <Nav className="text-white">
-            <Nav.Link as={Link} to="/home" className="text-white">
+            <Nav.Link
+              as={NavLink}
+              to="/home"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/" className="text-white">
+            <Nav.Link
+              as={NavLink}
+              to="/"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Store
             </Nav.Link>
-            <Nav.Link as={Link} to="/about" className="text-white">
+            <Nav.Link
+              as={NavLink}
+              to="/about"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               About
             </Nav.Link>
           </Nav>
