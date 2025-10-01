@@ -18,13 +18,13 @@ const Header = ({ onCartClick }) => {
             <Nav.Link href="about">About</Nav.Link> */}
           </Nav>
           <Nav className="text-white">
-            <Nav.Link href="#home" className="text-white">
+            <Nav.Link href="/home" className="text-white">
               Home
             </Nav.Link>
-            <Nav.Link href="#store" className="text-white">
+            <Nav.Link href="/" className="text-white">
               Store
             </Nav.Link>
-            <Nav.Link href="about" className="text-white">
+            <Nav.Link href="/about" className="text-white">
               About
             </Nav.Link>
           </Nav>

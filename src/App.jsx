@@ -5,6 +5,9 @@ import Header from "./components/Header/Header";
 import Products from "./components/Products/Products";
 import CartProvider from "./components/store/CartProvider";
 import Footer from "./components/Footer/Footer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./components/About/About";
+import Home from "./components/Home/Home";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -17,12 +20,18 @@ function App() {
     setIsCartOpen(false);
   };
   return (
-    <CartProvider>
-      <Header onCartClick={handleCartOpen} />
-      <Products />
-      {<Cart onShow={isCartOpen} onClose={handleClose} />}
-      <Footer />
-    </CartProvider>
+    <BrowserRouter>
+      <CartProvider>
+        <Header onCartClick={handleCartOpen} />
+        <Routes>
+          <Route path="/" element={<Products />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+        {<Cart onShow={isCartOpen} onClose={handleClose} />}
+        <Footer />
+      </CartProvider>
+    </BrowserRouter>
   );
 }
 
