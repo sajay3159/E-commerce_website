@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import CartContext from "../store/cart-context";
+import { Link } from "react-router-dom";
 
 const Header = ({ onCartClick }) => {
   const cartCtx = useContext(CartContext);
@@ -18,13 +19,13 @@ const Header = ({ onCartClick }) => {
             <Nav.Link href="about">About</Nav.Link> */}
           </Nav>
           <Nav className="text-white">
-            <Nav.Link href="/home" className="text-white">
+            <Nav.Link as={Link} to="/home" className="text-white">
               Home
             </Nav.Link>
-            <Nav.Link href="/" className="text-white">
+            <Nav.Link as={Link} to="/" className="text-white">
               Store
             </Nav.Link>
-            <Nav.Link href="/about" className="text-white">
+            <Nav.Link as={Link} to="/about" className="text-white">
               About
             </Nav.Link>
           </Nav>
