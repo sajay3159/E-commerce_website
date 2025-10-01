@@ -7,30 +7,12 @@ import {
   Offcanvas,
   Row,
 } from "react-bootstrap";
-
-const cartElements = [
-  {
-    title: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-    quantity: 2,
-  },
-  {
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-];
+import CartContext from "../store/cart-context";
+import { useContext } from "react";
 
 const Cart = ({ onShow, onClose }) => {
-  const total = cartElements.reduce((sum, item) => {
+  const cartCtx = useContext(CartContext);
+  const total = cartCtx.items.reduce((sum, item) => {
     return sum + item.price * item.quantity.toFixed(2);
   }, 0);
 
@@ -61,7 +43,7 @@ const Cart = ({ onShow, onClose }) => {
               Action
             </Col>
           </Row>
-          {cartElements.map((item) => (
+          {cartCtx.items.map((item) => (
             <Row
               key={item.title}
               className="align-items-center border-bottom py-3 g-2"
