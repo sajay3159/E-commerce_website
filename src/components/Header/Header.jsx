@@ -40,6 +40,13 @@ const Header = ({ onCartClick }) => {
             >
               About
             </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/contactus"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              Contact Us
+            </Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link

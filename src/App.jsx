@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
+import ContactUs from "./components/ContactUs/ContactUs";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/contactus" element={<ContactUs />} />
         </Routes>
         {<Cart onShow={isCartOpen} onClose={handleClose} />}
         <Footer />
