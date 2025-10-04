@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import CartContext from "../store/cart-context";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const productsArr = [
   {
@@ -27,7 +28,6 @@ const productsArr = [
     price: 100,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
-
   {
     id: "p5",
     title: "Black and white Colors",
@@ -60,6 +60,7 @@ const Products = () => {
   const addToCartHandler = (items) => {
     cartCtx.addItem({ ...items, quantity: 1 });
   };
+
   return (
     <Container className="py-4">
       <h2 className="text-center mb-4">Music</h2>
@@ -67,12 +68,14 @@ const Products = () => {
         {productsArr.map((item, index) => (
           <Col sm={6} md={4} lg={3} className="mb-4" key={index}>
             <Card className="h-100 text-center">
-              <Card.Img
-                variant="top"
-                src={item.imageUrl}
-                alt={item.title}
-                style={{ height: "250px", objectFit: "cover" }}
-              />
+              <Link to={`/products/${item.id}`}>
+                <Card.Img
+                  variant="top"
+                  src={item.imageUrl}
+                  alt={item.title}
+                  style={{ height: "250px", objectFit: "cover" }}
+                />
+              </Link>
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{item.title}</Card.Title>
                 <div className="d-flex justify-content-between align-items-center">

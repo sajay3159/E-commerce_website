@@ -28,7 +28,7 @@ const Header = ({ onCartClick }) => {
             </Nav.Link>
             <Nav.Link
               as={NavLink}
-              to="/"
+              to="/products"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
               Store
