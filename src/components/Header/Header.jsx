@@ -73,7 +73,7 @@ const Header = ({ onCartClick }) => {
         </Container>
       </Navbar>
       <section className="bg-secondary text-white text-center py-5">
-        <Container>
+        <Container className="pt-3">
           <h1 className="display-3 fw-bold">The Generics</h1>
         </Container>
       </section>
