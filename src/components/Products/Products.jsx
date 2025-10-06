@@ -61,14 +61,14 @@ const Products = () => {
     const userEmail = localStorage.getItem("email");
     const userKey = userEmail?.replace(/[@.]/g, "");
 
-    const cartItem = { ...item, quantity: 1 };
+    const cartItem = { ...item, quantity: 1, id: Math.random() };
     // 1. Update local context
     cartCtx.addItem(cartItem);
 
     // 2. Save to backend
     try {
       const res = await fetch(
-        `https://crudcrud.com/api/b88ed2a9f3ac40448a6b6c764dc9d455/cart${userKey}`,
+        `https://crudcrud.com/api/7d7e9834480848309674c9befffe7280/cart${userKey}`,
         {
           method: "POST",
           body: JSON.stringify(cartItem),

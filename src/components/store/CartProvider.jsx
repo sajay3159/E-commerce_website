@@ -42,6 +42,25 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === "REMOVE_ITEMS") {
+    const existingItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+
+    if (existingItemIndex === -1) return state;
+
+    const existingItem = state.items[existingItemIndex];
+    const updatedTotalAmount =
+      state.totalAmount - existingItem.price * existingItem.quantity;
+
+    const updatedItems = state.items.filter((item) => item.id !== action.id);
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount < 0 ? 0 : updatedTotalAmount,
+    };
+  }
+
   return defaultState;
 };
 
@@ -49,9 +68,6 @@ const CartProvider = (props) => {
   const initialState = localStorage.getItem("token");
   const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultState);
   const [token, setToken] = useState(initialState || null);
-  // const [token, setToken] = useState(
-  //   () => localStorage.getItem("token") || null
-  // );
 
   const isLoggedIn = !!token;
 
@@ -83,16 +99,16 @@ const CartProvider = (props) => {
     });
   };
 
-  //   const removeItemToCartHandler = (id) => {
-  //     dispatchCartAction({ type: "REMOVE_ITEMS", id: id });
-  //   };
+  const removeItemToCartHandler = (id) => {
+    dispatchCartAction({ type: "REMOVE_ITEMS", id: id });
+  };
 
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     setItems: setItemsHandler,
-    // removeItem: removeItemToCartHandler,
+    removeItem: removeItemToCartHandler,
     token: token,
     isLoggedIn: isLoggedIn,
     login: loginHandler,

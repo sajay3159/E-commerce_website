@@ -22,7 +22,7 @@ const Cart = ({ onShow, onClose }) => {
 
       try {
         const res = await fetch(
-          `https://crudcrud.com/api/b88ed2a9f3ac40448a6b6c764dc9d455/cart${userKey}`
+          `https://crudcrud.com/api/7d7e9834480848309674c9befffe7280/cart${userKey}`
         );
 
         if (!res.ok) {
@@ -101,7 +101,11 @@ const Cart = ({ onShow, onClose }) => {
               </Col>
 
               <Col xs={12} md={2} className="text-end mt-2">
-                <Button variant="danger" size="sm">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => cartCtx.removeItem(item.id)}
+                >
                   Remove
                 </Button>
               </Col>
