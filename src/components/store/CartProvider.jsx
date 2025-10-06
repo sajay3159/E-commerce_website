@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import CartContext from "./cart-context";
 
 const defaultState = {
@@ -39,12 +39,25 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = (props) => {
+  const initialState = localStorage.getItem("token");
   const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultState);
+  const [token, setToken] = useState(initialState || null);
+
+  const isLoggedIn = !!token;
 
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: "ADD_ITEMS", item: item });
   };
 
+  const loginHandler = (token) => {
+    setToken(token);
+    localStorage.setItem("token", token);
+  };
+
+  const logoutHandler = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+  };
   //   const removeItemToCartHandler = (id) => {
   //     dispatchCartAction({ type: "REMOVE_ITEMS", id: id });
   //   };
@@ -54,6 +67,10 @@ const CartProvider = (props) => {
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     // removeItem: removeItemToCartHandler,
+    token: token,
+    isLoggedIn: isLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
   };
   return (
     <CartContext.Provider value={cartContext}>

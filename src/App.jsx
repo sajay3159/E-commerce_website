@@ -11,6 +11,7 @@ import Home from "./components/Home/Home";
 import ContactUs from "./components/ContactUs/ContactUs";
 import ProductDetail from "./components/Products/ProductDetails";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import LoginForm from "./components/login/LoginForm";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -34,6 +35,7 @@ function App() {
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/login" element={<LoginForm />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {isCartOpen && <Cart onShow={isCartOpen} onClose={handleClose} />}
