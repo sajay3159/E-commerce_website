@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./App.css";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
@@ -12,10 +12,12 @@ import ContactUs from "./components/ContactUs/ContactUs";
 import ProductDetail from "./components/Products/ProductDetails";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import LoginForm from "./components/login/LoginForm";
+import CartContext from "./components/store/cart-context";
+import ProtectedRoute from "./components/ProductedRoute/ProtectedRoute";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const authCtx = useContext(CartContext);
   const handleCartOpen = () => {
     setIsCartOpen(true);
   };
@@ -29,13 +31,29 @@ function App() {
       <CartProvider>
         <Header onCartClick={handleCartOpen} />
         <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:productId" element={<ProductDetail />} />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/:productId"
+            element={
+              <ProtectedRoute>
+                <ProductDetail />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/login" element={<LoginForm />} />
+          {!authCtx.isLoggedIn && (
+            <Route path="/login" element={<LoginForm />} />
+          )}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {isCartOpen && <Cart onShow={isCartOpen} onClose={handleClose} />}
