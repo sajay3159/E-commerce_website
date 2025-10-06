@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 
 const Header = ({ onCartClick }) => {
   const cartCtx = useContext(CartContext);
-
   const numberofItemsInCart = cartCtx.items.reduce((curr, item) => {
     return curr + item.quantity;
   }, 0);
@@ -47,13 +46,15 @@ const Header = ({ onCartClick }) => {
             >
               Contact Us
             </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              to="/login"
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-            >
-              Login
-            </Nav.Link>
+            {!cartCtx.isLoggedIn && (
+              <Nav.Link
+                as={NavLink}
+                to="/login"
+                className={({ isActive }) => (isActive ? "active-link" : "")}
+              >
+                Login
+              </Nav.Link>
+            )}
           </Nav>
           <Nav>
             <Nav.Link

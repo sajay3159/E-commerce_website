@@ -49,6 +49,9 @@ const CartProvider = (props) => {
   const initialState = localStorage.getItem("token");
   const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultState);
   const [token, setToken] = useState(initialState || null);
+  // const [token, setToken] = useState(
+  //   () => localStorage.getItem("token") || null
+  // );
 
   const isLoggedIn = !!token;
 
