@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import CartContext from "./cart-context";
 
 const defaultState = {
@@ -35,6 +35,13 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === "SET_ITEMS") {
+    return {
+      items: action.items,
+      totalAmount: action.totalAmount,
+    };
+  }
+
   return defaultState;
 };
 
@@ -49,15 +56,30 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "ADD_ITEMS", item: item });
   };
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, email) => {
     setToken(token);
     localStorage.setItem("token", token);
+    localStorage.setItem("email", email);
   };
 
   const logoutHandler = () => {
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
   };
+
+  const setItemsHandler = (items) => {
+    const totalAmount = items.reduce((sum, item) => {
+      return sum + item.price * item.quantity;
+    }, 0);
+
+    dispatchCartAction({
+      type: "SET_ITEMS",
+      items,
+      totalAmount,
+    });
+  };
+
   //   const removeItemToCartHandler = (id) => {
   //     dispatchCartAction({ type: "REMOVE_ITEMS", id: id });
   //   };
@@ -66,6 +88,7 @@ const CartProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
+    setItems: setItemsHandler,
     // removeItem: removeItemToCartHandler,
     token: token,
     isLoggedIn: isLoggedIn,

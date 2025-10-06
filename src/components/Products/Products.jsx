@@ -57,8 +57,33 @@ const productsArr = [
 const Products = () => {
   const cartCtx = useContext(CartContext);
 
-  const addToCartHandler = (items) => {
-    cartCtx.addItem({ ...items, quantity: 1 });
+  const addToCartHandler = async (item) => {
+    const userEmail = localStorage.getItem("email");
+    const userKey = userEmail?.replace(/[@.]/g, "");
+
+    const cartItem = { ...item, quantity: 1 };
+    // 1. Update local context
+    cartCtx.addItem(cartItem);
+
+    // 2. Save to backend
+    try {
+      const res = await fetch(
+        `https://crudcrud.com/api/b88ed2a9f3ac40448a6b6c764dc9d455/cart${userKey}`,
+        {
+          method: "POST",
+          body: JSON.stringify(cartItem),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to store cart item in backend.");
+      }
+    } catch (error) {
+      console.error(" Backend error:", error.message);
+    }
   };
 
   return (

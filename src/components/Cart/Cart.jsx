@@ -8,10 +8,37 @@ import {
   Row,
 } from "react-bootstrap";
 import CartContext from "../store/cart-context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Cart = ({ onShow, onClose }) => {
   const cartCtx = useContext(CartContext);
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      if (!onShow || !cartCtx.isLoggedIn) return;
+      if (!onShow) return;
+
+      const email = localStorage.getItem("email");
+      const userKey = email.replace(/[@.]/g, "");
+
+      try {
+        const res = await fetch(
+          `https://crudcrud.com/api/b88ed2a9f3ac40448a6b6c764dc9d455/cart${userKey}`
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch cart items");
+        }
+
+        const data = await res.json();
+        cartCtx.setItems(data); // Set fetched items in context
+      } catch (err) {
+        console.error("❌ Error fetching cart items:", err);
+      }
+    };
+
+    fetchCartItems();
+  }, [onShow, cartCtx.isLoggedIn]);
+
   const total = cartCtx.items.reduce((sum, item) => {
     return sum + item.price * item.quantity.toFixed(2);
   }, 0);
@@ -45,7 +72,7 @@ const Cart = ({ onShow, onClose }) => {
           </Row>
           {cartCtx.items.map((item) => (
             <Row
-              key={item.title}
+              key={item.id}
               className="align-items-center border-bottom py-3 g-2"
             >
               <Col xs={6} md={5} className="d-flex align-items-center gap-2">
