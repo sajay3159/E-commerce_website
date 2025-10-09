@@ -41,7 +41,7 @@ function ContactUs() {
         style={{ position: "fixed", top: 20, right: 20, zIndex: 9999 }}
       >
         <Toast.Body className="text-white">
-          Order added successfully!
+          Message sent successfully!
         </Toast.Body>
       </Toast>
       <Form onSubmit={handleSubmit}>
