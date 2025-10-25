@@ -12,9 +12,11 @@ import ProtectedRoute from "./components/ProductedRoute/ProtectedRoute";
 const About = lazy(() => import("./components/About/About"));
 const Home = lazy(() => import("./components/Home/Home"));
 const ContactUs = lazy(() => import("./components/ContactUs/ContactUs"));
-const ProductDetail = lazy(() => import("./components/Products/ProductDetails"));
+const ProductDetail = lazy(() =>
+  import("./components/Products/ProductDetails")
+);
 const Products = lazy(() => import("./components/Products/Products"));
-const LoginForm = lazy(() => import("./components/login/LoginForm"));
+const LoginForm = lazy(() => import("./components/Login/LoginForm"));
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
