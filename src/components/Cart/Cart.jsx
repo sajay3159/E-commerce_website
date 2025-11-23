@@ -22,7 +22,7 @@ const Cart = ({ onShow, onClose }) => {
 
       try {
         const res = await fetch(
-          `https://crudcrud.com/api/7d7e9834480848309674c9befffe7280/cart${userKey}`
+          `https://e-commerce-website-c9c94-default-rtdb.firebaseio.com/cart${userKey}`
         );
 
         if (!res.ok) {
