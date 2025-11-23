@@ -16,7 +16,7 @@ const ProductDetail = lazy(() =>
   import("./components/Products/ProductDetails")
 );
 const Products = lazy(() => import("./components/Products/Products"));
-const LoginForm = lazy(() => import("./components/Login/LoginForm"));
+const LoginForm = lazy(() => import("./components/login/LoginForm"));
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
