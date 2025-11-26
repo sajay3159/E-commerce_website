@@ -30,7 +30,7 @@ const Cart = ({ onShow, onClose }) => {
         }
 
         const data = await res.json();
-        cartCtx.setItems(data); // Set fetched items in context
+        cartCtx.setItems(data);
       } catch (err) {
         console.error("Error fetching cart items:", err);
       }
